@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Catalogue Ajax</title>
+    <style>
+    body 
+    {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient( #8e2de2, #4a00e0);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1{
+      font-size: 3.8em;
+    }
+
+    p{
+      font-size: 1.8em;
+    }
+
+      button
+      {
+      background: #fff;
+      color: #4a00e0;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+  button:hover 
+    {
+      background: #4a00e0;
+      color: #fff;
+      box-shadow: 0 0 10px #fff;
+     }
+
+      #records{
+      margin-top: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 20px;
+      text-align: left;
+     }
+
+  .record 
+  {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 10px 0;
+    }
+
+    .record:last-child
+     {
+      border-bottom: none;
+    }
+
+    .artist 
+    {
+       font-weight: bold;
+       font-size: 1.2em;
+    }
+
+    .song, .album 
+    {
+      margin-left: 10px;
+    }
+   </style>
+ </head>
+<body>
+  <h1><marquee><b>Music Catalogue Management System</b></marquee></h1>
+  <p><i>Click below to load Artists, Songs & Albums</i></p>
+  <button onclick="loadRecords()">Load Music Records</button>
+
+  <div id="records"></div>
+
+    <script>
+
+    function loadRecords() 
+    {
+    let xhr = new XMLHttpRequest();
+
+    let url = "music_data.json"; 
+
+      xhr.open("GET", url, true);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          let data = JSON.parse(xhr.responseText);
+          displayRecords(data);
+        }
+      };
+
+      xhr.send();
+    }
+
+    function displayRecords(data) {
+      let output = "";
+      data.forEach(record => {
+        output += `
+          <div class="record">
+            <div class="artist"> Artist: ${record.artist}</div>
+            <div class="song">Song: ${record.song}</div>
+            <div class="album"> Album: ${record.album}</div>
+          </div>
+        `;
+      });
+      document.getElementById("records").innerHTML = output;
+    }
+  </script>
+</body>
+</html>
