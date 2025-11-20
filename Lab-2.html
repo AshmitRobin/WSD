@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music Catalogue</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #8e2de2, #4a00e0);
+      color: #fff;
+      text-align: center;
+      padding: 30px 0;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 5px;
+      letter-spacing: 2px;
+    }
+
+    .top-box {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      width: 75%;
+      margin: auto;
+      border-radius: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 25px #00000050;
+    }
+
+    p {
+      font-size: 1.2em;
+      opacity: 0.9;
+    }
+
+    .btn-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: #fff;
+      color: #4a00e0;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 12px #00000040;
+    }
+
+    button:hover {
+      background: #4a00e0;
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 0 15px #ffffff80;
+    }
+
+    #statusBox {
+      margin-top: 20px;
+      font-size: 1.3em;
+      font-weight: bold;
+      height: 35px;
+      text-shadow: 0 0 5px #000;
+    }
+
+    #records {
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 20px;
+      border-radius: 25px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 25px #00000060;
+    }
+
+    .record {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.15);
+      margin-bottom: 18px;
+      padding: 18px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+
+    .record:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #ffffff70;
+    }
+
+    .text-area {
+      font-size: 1.1em;
+      text-align: left;
+      width: 60%;
+    }
+
+    .artist {
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-bottom: 8px;
+    }
+
+    .thumbnail {
+      width: 130px;
+      height: 130px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 12px #000;
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+<div class="top-box">
+  <h1><marquee><b>Music Catalogue Management System</b></marquee></h1>
+  <p><i>Click any button to load data or test errors</i></p>
+</div>
+
+<div class="btn-group">
+  <button onclick="loadRecords('music_data.json')">Load Music Records</button>
+  <button onclick="loadRecords('unknown_file.json')">Load Invalid File</button>
+</div>
+
+<div id="statusBox"></div>
+<div id="records"></div>
+
+<script>
+function loadRecords(fileName) {
+    document.getElementById("statusBox").innerHTML = "";
+    $("#records").html("");
+
+    let xhr = new XMLHttpRequest();
+    xhr.timeout = 4000;
+
+    xhr.open("GET", fileName, true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            $("#loader").fadeOut();
+
+            let status = document.getElementById("statusBox");
+
+            switch (xhr.status) {
+                case 200:
+                    status.style.color = "#00ff90";
+                    status.innerHTML = "Data Loaded Successfully";
+                    let data = JSON.parse(xhr.responseText);
+                    displayRecords(data);
+                    break;
+
+                case 404:
+                    status.style.color = "red";
+                    status.innerHTML = "File Not Found (404)";
+                    break;
+
+                default:
+                    status.style.color = "yellow";
+                    status.innerHTML = "Unexpected Error: " + xhr.status;
+            }
+        }
+    };
+
+    xhr.onerror = function () {
+        $("#loader").fadeOut();
+        document.getElementById("statusBox").style.color = "red";
+        document.getElementById("statusBox").innerHTML =
+            "Network Issue — Unable to reach the server.";
+    };
+
+    xhr.ontimeout = function () {
+        $("#loader").fadeOut();
+        document.getElementById("statusBox").style.color = "orange";
+        document.getElementById("statusBox").innerHTML =
+            "Timeout — The request took too long to respond.";
+    };
+
+    xhr.send();
+}
+
+function displayRecords(data) {
+    let images = [
+        "Arijit.webp",
+        "Shreya.jpeg",
+        "Vishal.jpeg",
+        "shaan.jpeg",
+        "udit.jpeg"
+    ];
+
+    let output = "";
+
+    data.forEach((record, index) => {
+        output += `
+            <div class="record">
+              <div class="text-area">
+                <div class="artist">Artist: ${record.artist}</div>
+                <div>Song: ${record.song}</div>
+                <div>Album: ${record.album}</div>
+              </div>
+              <img src="${images[index]}" class="thumbnail">
+            </div>
+        `;
+    });
+
+    $("#records").hide().html(output).fadeIn(800);
+}
+</script>
+</body>
+</html>
