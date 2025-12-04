@@ -1,0 +1,151 @@
+/* --- GLOBAL RESET --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color: #fff;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+#root {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* --- MODULE CONTAINER --- */
+.module {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  margin-bottom: 45px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.module h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #8a2be2, #e94057, #f27121);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- FORM FIELD STYLING --- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.form input,
+.form textarea,
+.form select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus {
+  border-color: #a78bfa;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.4);
+}
+
+.error {
+  border-color: #ff4d4d !important;
+}
+
+.error-text {
+  color: #ff8080;
+  font-size: 13px;
+  margin-top: -12px;
+}
+
+/* --- SUBMIT BUTTON --- */
+button {
+  padding: 14px 16px;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(90deg, #7f00ff, #e100ff);
+  color: #fff;
+  transition: 0.25s;
+  margin-top: 10px;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(225, 0, 255, 0.4);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* --- RECORD CARDS --- */
+.records {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 22px;
+}
+
+.record-card {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  transition: 0.25s ease;
+}
+
+.record-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+}
+
+.record-card h3 {
+  margin-bottom: 8px;
+  font-size: 20px;
+  color: #e5d9ff;
+}
+
+.record-card p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+/* --- SCROLLBAR STYLE --- */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#7f00ff, #e100ff);
+  border-radius: 10px;
+}
