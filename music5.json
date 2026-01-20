@@ -1,0 +1,58 @@
+
+[
+  {
+    "artist": "Arijit Singh",
+    "song": "Tum Hi Ho",
+    "lyricist": "Mithoon",
+    "playlist": "Romantic Hits",
+    "concert": "Mumbai Live",
+    "fans": 1200000,
+    "releaseDate": "2013-04-17"
+  },
+  {
+    "artist": "A R Rahman",
+    "song": "Jai Ho",
+    "lyricist": "Gulzar",
+    "playlist": "Patriotic Vibes",
+    "concert": "Delhi Arena",
+    "fans": 2000000,
+    "releaseDate": "2008-12-05"
+  },
+  {
+    "artist": "Shreya Ghoshal",
+    "song": "Sun Raha Hai",
+    "lyricist": "Sandeep Nath",
+    "playlist": "Melody Queen",
+    "concert": "Bangalore Nights",
+    "fans": 950000,
+    "releaseDate": "2014-06-20"
+  },
+  {
+    "artist": "Sonu Nigam",
+    "song": "Kal Ho Naa Ho",
+    "lyricist": "Javed Akhtar",
+    "playlist": "Golden Classics",
+    "concert": "Pune Musical Fest",
+    "fans": 1750000,
+    "releaseDate": "2003-09-28"
+  },
+  {
+    "artist": "Neha Kakkar",
+    "song": "Dilbar",
+    "lyricist": "Ikka",
+    "playlist": "Party Beats",
+    "concert": "Goa Night Bash",
+    "fans": 1400000,
+    "releaseDate": "2018-08-22"
+  },
+  {
+    "artist": "Atif Aslam",
+    "song": "Tera Hone Laga Hoon",
+    "lyricist": "Ashish Pandit",
+    "playlist": "Love Anthems",
+    "concert": "Dubai Live",
+    "fans": 1600000,
+    "releaseDate": "2009-10-15"
+  }
+]
+Displaying music.json.
