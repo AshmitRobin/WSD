@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Music AngularJS</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body ng-app="musicApp" ng-controller="musicCtrl">
+
+<h1><marquee>MUSIC CATALOGUE MANAGEMENT SYSTEM</marquee> </h1>
+
+<form name="searchForm" novalidate>
+  <input type="text"
+         name="artist"
+         placeholder="Search Artist"
+         ng-model="searchArtist"
+         ng-focus="onFocus()"
+         ng-blur="onBlur()"
+         ng-pattern="/^[a-zA-Z ]+$/"
+         ng-minlength="2"
+         required>
+      
+  <p class="error" ng-show="searchForm.artist.$touched && searchForm.artist.$error.required"> <!-- for complexity-->
+    Artist name is required
+  </p>
+  <p class="error" ng-show="searchForm.artist.$error.minlength">
+    Minimum 2 characters required
+  </p>
+  <p class="error" ng-show="searchForm.artist.$error.pattern">
+    Only alphabets allowed
+  </p>
+</form>
+
+<p class="msg">{{message}}</p>
+
+<button ng-click="clearSearch()">Clear Search</button>
+
+<p class="info">
+  Total Records: {{music.length}} |
+  Showing: {{(music | filter:{artist:searchArtist}).length}}
+</p>
+
+<table>
+  <tr>
+    <th>Artist</th>
+    <th>Song</th>
+    <th>Lyricist</th>
+    <th>Playlist</th>
+    <th>Concert</th>
+    <th>Fans</th>
+    <th>Release Date</th>
+  </tr>
+                                                <!-- for complexity-->
+  <tr ng-repeat="m in music | filter:{artist:searchArtist}"         
+      ng-mouseenter="hoverIn(m.artist)"
+      ng-mouseleave="hoverOut()"
+      ng-class="{'highlight': hoveredArtist === m.artist}">     <!-- for complexity-->
+
+    <td>{{m.artist | uppercase}}</td>
+    <td>{{m.song | lowercase}}</td>
+    <td>{{m.lyricist}}</td>
+    <td>{{m.playlist}}</td>
+    <td>{{m.concert}}</td>
+    <td>{{m.fans | number}}</td>
+    <td>{{m.releaseDate | date:'dd-MM-yyyy'}}</td>
+  </tr>
+</table>
+
+<p class="hover" ng-if="hoverMessage">{{hoverMessage}}</p>        <!-- for complexity-->
+
+<script>
+var app = angular.module("musicApp", []);
+
+app.controller("musicCtrl", function($scope, $http) {
+
+  $http.get("music.json").then(function(response) {
+    $scope.music = response.data;
+  });
+
+  $scope.onFocus = function() {
+    $scope.message = "Search field focused";
+  };
+
+  $scope.onBlur = function() {
+    $scope.message = "Search field lost focus";
+  };
+
+  $scope.clearSearch = function() {
+    $scope.searchArtist = "";
+    $scope.message = "Search cleared";
+  };
+
+  $scope.hoverIn = function(artist) {
+    $scope.hoveredArtist = artist;
+    $scope.hoverMessage = "Viewing artist: " + artist;
+  };
+
+  $scope.hoverOut = function() {
+    $scope.hoverMessage = "";
+    $scope.hoveredArtist = null;
+  };
+
+});
+</script>
+
+</body>
+</html>
