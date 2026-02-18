@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="musicApp">
+<head>
+  <title>Music Library - AngularJS Filters</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <link rel="stylesheet" href="style2.css">
+  <script src="app2.js"></script>
+</head>
+
+<body ng-controller="MusicController">
+
+<div class="container">
+  <h1> Music Library</h1>
+
+  <input type="text"
+         ng-model="searchSong"
+         placeholder="Search song or artist..."
+         required />
+
+  <select ng-model="selectedPlaylist">
+    <option value="">All Playlists</option>
+    <option ng-repeat="p in getPlaylists()">{{p}}</option>
+  </select>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ARTIST (Uppercase)</th>
+        <th>SONG (Lowercase)</th>
+        <th>PLAYLIST</th>
+        <th>RELEASE DATE</th>
+        <th>DURATION</th>
+        <th>RATING</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="m in musicData
+        | filter:searchSong
+        | filter:{playlist:selectedPlaylist}">
+
+        <!-- Uppercase -->
+        <td>{{ m.artist | uppercase }}</td>
+
+        <!-- Lowercase -->
+        <td>{{ m.song | lowercase }}</td>
+
+        <td>{{ m.playlist }}</td>
+
+        <!-- Date format -->
+        <td>{{ m.releaseDate | date:'dd MMM yyyy' }}</td>
+
+        <!-- Number format -->
+        <td>{{ m.duration | number:2 }} mins</td>
+
+        <!-- Currency format -->
+        <td>{{ m.rating | number:1 }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Validation -->
+  <p class="error" ng-show="!searchSong">
+     Please enter a song or artist name
+  </p>
+
+</div>
+
+</body>
+</html>
