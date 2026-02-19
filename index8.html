@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Records</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Music Records System</h1>
+    <p>NodeJS Event Emitters + JSON</p>
+
+    <button id="triggerBtn">Trigger Music Events</button>
+
+    <div id="output"></div>
+</div>
+
+<script>
+document.getElementById("triggerBtn").addEventListener("click", async () => {
+    const response = await fetch("/trigger");
+    const data = await response.json();
+
+    let outputHTML = "";
+
+    for (let key in data) {
+        outputHTML += `<h3>${key.toUpperCase()}</h3><ul>`;
+        data[key].forEach(item => {
+            outputHTML += `<li>${item}</li>`;
+        });
+        outputHTML += "</ul>";
+    }
+
+    document.getElementById("output").innerHTML = outputHTML;
+});
+</script>
+
+</body>
+</html>
